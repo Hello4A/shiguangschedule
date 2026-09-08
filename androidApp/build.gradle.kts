@@ -19,8 +19,8 @@ android {
         applicationId = "com.xingheyuzhuan.shiguangschedule.ynvct"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 35
-        versionName = "2.0.1-ynvct-sync-settings"
+        versionCode = 36
+        versionName = "2.0.2-ynvct-release"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
