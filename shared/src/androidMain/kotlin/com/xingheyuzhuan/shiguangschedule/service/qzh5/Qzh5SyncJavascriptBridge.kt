@@ -40,5 +40,7 @@ class Qzh5SyncJavascriptBridge(context: Context) {
             "com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_CONFIGURED"
         const val ACTION_QZH5_SYNC_DISABLED =
             "com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_DISABLED"
+        const val ACTION_QZH5_SYNC_NOW =
+            "com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_NOW"
     }
 }
