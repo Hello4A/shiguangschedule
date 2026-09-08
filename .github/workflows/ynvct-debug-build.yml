@@ -30,7 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Decode fixed test keystore
+        run: |
+          base64 -d .github/ynvct-debug.jks.b64 > androidApp/ynvct-debug.jks
+
       - name: Build debug APK
+        env:
+          YNVCT_KEYSTORE_PATH: ynvct-debug.jks
         run: |
           chmod +x ./gradlew
           ./gradlew :androidApp:assembleDebug --stacktrace
