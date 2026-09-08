@@ -12,6 +12,7 @@ class Qzh5SyncJavascriptBridge(context: Context) {
     fun enableAutoSync(userNo: String, encryptedPwd: String, tableId: String): Boolean {
         return runCatching {
             credentialStore.save(userNo, encryptedPwd, tableId)
+            credentialStore.setAutoSyncEnabled(true)
             appContext.sendBroadcast(
                 Intent(ACTION_QZH5_SYNC_CONFIGURED).setPackage(appContext.packageName)
             )
@@ -22,7 +23,7 @@ class Qzh5SyncJavascriptBridge(context: Context) {
     @JavascriptInterface
     fun disableAutoSync(): Boolean {
         return runCatching {
-            credentialStore.clear()
+            credentialStore.setAutoSyncEnabled(false)
             appContext.sendBroadcast(
                 Intent(ACTION_QZH5_SYNC_DISABLED).setPackage(appContext.packageName)
             )
@@ -31,7 +32,8 @@ class Qzh5SyncJavascriptBridge(context: Context) {
     }
 
     @JavascriptInterface
-    fun isAutoSyncEnabled(): Boolean = credentialStore.hasCredentials()
+    fun isAutoSyncEnabled(): Boolean =
+        credentialStore.hasCredentials() && credentialStore.isAutoSyncEnabled()
 
     companion object {
         const val ACTION_QZH5_SYNC_CONFIGURED =
