@@ -39,7 +39,15 @@ class MyApplication : Application(), Configuration.Provider {
         val qzh5Store = Qzh5CredentialStore(this)
         if (qzh5Store.hasCredentials() && qzh5Store.isAutoSyncEnabled()) {
             Qzh5AutoSyncScheduler.schedule(this)
-            Qzh5AutoSyncScheduler.syncNow(this)
+
+            val lastSyncAt = qzh5Store.getLastSyncAt()
+            val shouldSyncNow =
+                lastSyncAt <= 0L ||
+                    System.currentTimeMillis() - lastSyncAt >= 30 * 60 * 1000L
+
+            if (shouldSyncNow) {
+                Qzh5AutoSyncScheduler.syncNow(this)
+            }
         }
     }
 }
