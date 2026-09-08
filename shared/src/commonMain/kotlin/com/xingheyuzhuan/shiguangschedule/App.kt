@@ -41,6 +41,7 @@ import com.xingheyuzhuan.shiguangschedule.ui.settings.coursemanagement.CourseIns
 import com.xingheyuzhuan.shiguangschedule.ui.settings.coursemanagement.CourseNameListScreen
 import com.xingheyuzhuan.shiguangschedule.ui.settings.coursetables.ManageCourseTablesScreen
 import com.xingheyuzhuan.shiguangschedule.ui.settings.notification.NotificationSettingsScreen
+import com.xingheyuzhuan.shiguangschedule.ui.settings.qzh5.Qzh5AutoSyncSettingsScreen
 import com.xingheyuzhuan.shiguangschedule.ui.settings.quickactions.QuickActionsScreen
 import com.xingheyuzhuan.shiguangschedule.ui.settings.quickactions.delete.QuickDeleteScreen
 import com.xingheyuzhuan.shiguangschedule.ui.settings.quickactions.tweaks.TweakScheduleScreen
@@ -184,6 +185,7 @@ fun ScreenContent(
         Destination.ThemeSettings -> ThemeSettingsScreen(onBack)
         Destination.BackupAndRestore -> BackupScreen(onBack)
         Destination.LanguageSettings -> LanguageSettingScreen(onBack)
+        Destination.Qzh5AutoSyncSettings -> Qzh5AutoSyncSettingsScreen(onBack)
 
         is Destination.AdapterSelection -> AdapterSelectionScreen(
             onNavigate, onBack, targetDest.schoolId, targetDest.schoolName, targetDest.categoryNumber, targetDest.resourceFolder
