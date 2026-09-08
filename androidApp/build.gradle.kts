@@ -16,11 +16,11 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.xingheyuzhuan.shiguangschedule"
+        applicationId = "com.xingheyuzhuan.shiguangschedule.ynvct"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 34
-        versionName = "2.0.0"
+        versionName = "2.0.0-ynvct-sync"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
