@@ -36,7 +36,8 @@ class MyApplication : Application(), Configuration.Provider {
             workManagerFactory()
         }
 
-        if (Qzh5CredentialStore(this).hasCredentials()) {
+        val qzh5Store = Qzh5CredentialStore(this)
+        if (qzh5Store.hasCredentials() && qzh5Store.isAutoSyncEnabled()) {
             Qzh5AutoSyncScheduler.schedule(this)
             Qzh5AutoSyncScheduler.syncNow(this)
         }
