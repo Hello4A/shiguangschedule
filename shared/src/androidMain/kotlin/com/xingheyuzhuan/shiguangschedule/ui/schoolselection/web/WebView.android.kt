@@ -7,6 +7,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.xingheyuzhuan.shiguangschedule.service.qzh5.Qzh5SyncJavascriptBridge
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -178,6 +179,7 @@ actual fun PlatformWebView(
 
                     addJavascriptInterface(WebPostBridge(), "WebPostService")
                     addJavascriptInterface(NativeBridge(bridgeHandler), "_shiguangNativeBridge")
+                    addJavascriptInterface(Qzh5SyncJavascriptBridge(context), "Qzh5SyncBridge")
 
                     val baseChromeClient = object : WebChromeClient() {
                         override fun onProgressChanged(view: WebView?, newProgress: Int) {
