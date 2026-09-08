@@ -1,4 +1,4 @@
-name: YNVCT Auto Sync Debug Build
+name: YNVCT Auto Sync Release Build
 
 on:
   push:
@@ -34,16 +34,16 @@ jobs:
         run: |
           base64 -d .github/ynvct-debug.jks.b64 > androidApp/ynvct-debug.jks
 
-      - name: Build debug APK
+      - name: Build release APK
         env:
           YNVCT_KEYSTORE_PATH: ynvct-debug.jks
         run: |
           chmod +x ./gradlew
-          ./gradlew :androidApp:assembleDebug --stacktrace
+          ./gradlew :androidApp:assembleRelease --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: ynvct-auto-sync-debug-apk
-          path: androidApp/build/outputs/apk/debug/*.apk
+          name: ynvct-auto-sync-release-apk
+          path: androidApp/build/outputs/apk/release/*.apk
           retention-days: 7
