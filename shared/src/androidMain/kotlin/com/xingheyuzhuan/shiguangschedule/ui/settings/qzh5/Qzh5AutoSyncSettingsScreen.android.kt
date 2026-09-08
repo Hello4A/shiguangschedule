@@ -65,7 +65,7 @@ actual fun Qzh5AutoSyncSettingsScreen(onBack: () -> Unit) {
             intervalHours = store.getSyncIntervalHours()
             lastSyncAt = store.getLastSyncAt()
             lastStatus = store.getLastSyncStatus()
-            delay(1500)
+            delay(5000)
         }
     }
 
