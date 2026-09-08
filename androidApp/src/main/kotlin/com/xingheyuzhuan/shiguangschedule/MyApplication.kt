@@ -38,6 +38,7 @@ class MyApplication : Application(), Configuration.Provider {
 
         if (Qzh5CredentialStore(this).hasCredentials()) {
             Qzh5AutoSyncScheduler.schedule(this)
+            Qzh5AutoSyncScheduler.syncNow(this)
         }
     }
 }
