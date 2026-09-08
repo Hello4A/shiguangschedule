@@ -19,13 +19,31 @@ android {
         applicationId = "com.xingheyuzhuan.shiguangschedule.ynvct"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 34
-        versionName = "2.0.0-ynvct-sync"
+        versionCode = 35
+        versionName = "2.0.1-ynvct-sync-settings"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("ynvctTest") {
+            val ksPath = System.getenv("YNVCT_KEYSTORE_PATH")
+            if (!ksPath.isNullOrBlank()) {
+                storeFile = file(ksPath)
+                storePassword = "ynvcttest"
+                keyAlias = "ynvct"
+                keyPassword = "ynvcttest"
+            }
+        }
+    }
+
     buildTypes {
+        debug {
+            if (!System.getenv("YNVCT_KEYSTORE_PATH").isNullOrBlank()) {
+                signingConfig = signingConfigs.getByName("ynvctTest")
+            }
+        }
+
         release {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -33,7 +51,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (!System.getenv("YNVCT_KEYSTORE_PATH").isNullOrBlank()) {
+                signingConfigs.getByName("ynvctTest")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 
