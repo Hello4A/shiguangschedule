@@ -43,8 +43,9 @@ class Qzh5AutoSyncWorker(
     private val json = Json { ignoreUnknownKeys = true }
 
     override suspend fun doWork(): Result {
-        val credentials = Qzh5CredentialStore(applicationContext).load()
-            ?: return Result.success()
+        val store = Qzh5CredentialStore(applicationContext)
+        if (!store.isAutoSyncEnabled()) return Result.success()
+        val credentials = store.load() ?: return Result.success()
 
         return try {
             val tableId = credentials.tableId.ifBlank {
@@ -78,6 +79,8 @@ class Qzh5AutoSyncWorker(
             )
 
             if (!courseChanged && !configChanged) {
+                store.setLastSyncAt(System.currentTimeMillis())
+                store.setLastSyncStatus("同步成功，课表无变化")
                 Log.d(TAG, "课表无变化")
                 return Result.success()
             }
@@ -96,9 +99,13 @@ class Qzh5AutoSyncWorker(
             }
 
             notifyChanged(courseChanged, configChanged)
+            store.setLastSyncAt(System.currentTimeMillis())
+            store.setLastSyncStatus("检测到变化，已自动更新")
             Log.i(TAG, "检测到课表变化并完成自动更新")
             Result.success()
         } catch (e: Throwable) {
+            store.setLastSyncAt(System.currentTimeMillis())
+            store.setLastSyncStatus("同步失败：" + (e.message ?: e::class.simpleName.orEmpty()))
             Log.e(TAG, "qzh5 自动同步失败", e)
             Result.retry()
         }
