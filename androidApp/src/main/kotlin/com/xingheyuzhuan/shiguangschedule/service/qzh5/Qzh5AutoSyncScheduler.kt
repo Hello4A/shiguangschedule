@@ -19,7 +19,8 @@ object Qzh5AutoSyncScheduler {
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val periodic = PeriodicWorkRequestBuilder<Qzh5AutoSyncWorker>(2, TimeUnit.HOURS)
+        val hours = Qzh5CredentialStore(context).getSyncIntervalHours().toLong()
+        val periodic = PeriodicWorkRequestBuilder<Qzh5AutoSyncWorker>(hours, TimeUnit.HOURS)
             .setConstraints(constraints)
             .build()
 
