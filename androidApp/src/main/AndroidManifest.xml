@@ -57,6 +57,7 @@
             <intent-filter>
                 <action android:name="com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_CONFIGURED" />
                 <action android:name="com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_DISABLED" />
+                <action android:name="com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_NOW" />
             </intent-filter>
         </receiver>
 
