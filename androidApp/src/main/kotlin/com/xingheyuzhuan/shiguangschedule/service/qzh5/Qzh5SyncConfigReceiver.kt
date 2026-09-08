@@ -13,6 +13,9 @@ class Qzh5SyncConfigReceiver : BroadcastReceiver() {
             Qzh5SyncJavascriptBridge.ACTION_QZH5_SYNC_DISABLED -> {
                 Qzh5AutoSyncScheduler.cancel(context)
             }
+            Qzh5SyncJavascriptBridge.ACTION_QZH5_SYNC_NOW -> {
+                Qzh5AutoSyncScheduler.syncNow(context)
+            }
         }
     }
 }
