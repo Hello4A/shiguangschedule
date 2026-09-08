@@ -227,7 +227,7 @@ class Qzh5AutoSyncWorker(
             ?: firstData["week"]?.jsonPrimitive?.intOrNull
             ?: return null
         val maxWeek = top["maxWeek"]?.jsonPrimitive?.contentOrNull?.toIntOrNull() ?: 20
-        val today = top["today"]?.jsonPrimitive?.contentOrNull?.let(LocalDate::parse) ?: return null
+        val today = top["today"]?.jsonPrimitive?.contentOrNull?.let { LocalDate.parse(it) } ?: return null
 
         val daysFromMonday = when (today.dayOfWeek) {
             DayOfWeek.SUNDAY -> 6L
