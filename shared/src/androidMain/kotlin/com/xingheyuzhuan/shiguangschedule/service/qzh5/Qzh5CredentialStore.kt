@@ -64,6 +64,33 @@ class Qzh5CredentialStore(context: Context) {
 
     fun hasCredentials(): Boolean = load() != null
 
+    fun isAutoSyncEnabled(): Boolean =
+        prefs.getBoolean(KEY_AUTO_SYNC_ENABLED, hasCredentials())
+
+    fun setAutoSyncEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_AUTO_SYNC_ENABLED, enabled).apply()
+    }
+
+    fun getSyncIntervalHours(): Int =
+        prefs.getInt(KEY_SYNC_INTERVAL_HOURS, 2).takeIf { it in ALLOWED_INTERVALS } ?: 2
+
+    fun setSyncIntervalHours(hours: Int) {
+        require(hours in ALLOWED_INTERVALS)
+        prefs.edit().putInt(KEY_SYNC_INTERVAL_HOURS, hours).apply()
+    }
+
+    fun getLastSyncAt(): Long = prefs.getLong(KEY_LAST_SYNC_AT, 0L)
+
+    fun setLastSyncAt(timestamp: Long) {
+        prefs.edit().putLong(KEY_LAST_SYNC_AT, timestamp).apply()
+    }
+
+    fun getLastSyncStatus(): String = prefs.getString(KEY_LAST_SYNC_STATUS, "") ?: ""
+
+    fun setLastSyncStatus(status: String) {
+        prefs.edit().putString(KEY_LAST_SYNC_STATUS, status.take(200)).apply()
+    }
+
     fun clear() {
         prefs.edit().clear().apply()
     }
@@ -91,6 +118,11 @@ class Qzh5CredentialStore(context: Context) {
         private const val KEY_ALIAS = "shiguang_ynvct_qzh5_sync_key_v1"
         private const val KEY_IV = "iv"
         private const val KEY_DATA = "data"
+        private const val KEY_AUTO_SYNC_ENABLED = "auto_sync_enabled"
+        private const val KEY_SYNC_INTERVAL_HOURS = "sync_interval_hours"
+        private const val KEY_LAST_SYNC_AT = "last_sync_at"
+        private const val KEY_LAST_SYNC_STATUS = "last_sync_status"
+        private val ALLOWED_INTERVALS = setOf(1, 2, 4, 6)
         private const val ANDROID_KEYSTORE = "AndroidKeyStore"
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
     }
