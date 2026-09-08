@@ -392,6 +392,11 @@ private fun AdvancedSettingsSection(onNavigate: (Destination) -> Unit) {
                 onClick = { onNavigate(Destination.NotificationSettings) }
             )
             SettingItem(
+                title = "云南交院自动同步",
+                subtitle = "管理 qzh5 自动同步、同步频率与立即同步",
+                onClick = { onNavigate(Destination.Qzh5AutoSyncSettings) }
+            )
+            SettingItem(
                 title = stringResource(Res.string.title_manage_course_tables),
                 subtitle = stringResource(Res.string.desc_manage_course_tables),
                 onClick = { onNavigate(Destination.ManageCourseTables) }
