@@ -2,6 +2,8 @@ package com.xingheyuzhuan.shiguangschedule
 
 import android.app.Application
 import androidx.work.Configuration
+import com.xingheyuzhuan.shiguangschedule.service.qzh5.Qzh5AutoSyncScheduler
+import com.xingheyuzhuan.shiguangschedule.service.qzh5.Qzh5CredentialStore
 import com.xingheyuzhuan.shiguangschedule.data.di.SharedModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -32,6 +34,10 @@ class MyApplication : Application(), Configuration.Provider {
             androidLogger()
             androidContext(this@MyApplication)
             workManagerFactory()
+        }
+
+        if (Qzh5CredentialStore(this).hasCredentials()) {
+            Qzh5AutoSyncScheduler.schedule(this)
         }
     }
 }
