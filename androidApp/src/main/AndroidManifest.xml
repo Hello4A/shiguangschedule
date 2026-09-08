@@ -51,6 +51,16 @@
             android:exported="false" />
 
         <receiver
+            android:name=".service.qzh5.Qzh5SyncConfigReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_CONFIGURED" />
+                <action android:name="com.xingheyuzhuan.shiguangschedule.ACTION_QZH5_SYNC_DISABLED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".widget.tiny.TinyNativeProvider"
             android:label="@string/widget_name_tiny"
             android:exported="false">
